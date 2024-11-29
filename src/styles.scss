@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--mat-app-background-color);
+  margin: 0;
+
+  font-family:
+    source sans pro,
+    roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    segoe ui,
+    Roboto,
+    helvetica neue,
+    Arial,
+    noto sans,
+    sans-serif,
+    apple color emoji,
+    segoe ui emoji,
+    segoe ui symbol,
+    noto color emoji;
+  font-weight: 300;
+  font-size: 18px;
+  color: #222833;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

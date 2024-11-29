@@ -1,0 +1,44 @@
+<div class="flex flex-justify-center">
+  <form class="flex flex-align-center" style="gap: 15px;" (submit)="submit()">
+    <mat-form-field floatLabel="always">
+      <mat-label>Введіть дату народження:</mat-label>
+
+      <input matInput placeholder="DD.MM.YYYY" mask="d0.M0.0000"
+        [dropSpecialCharacters]="false" [formControl]="dateControl">
+
+      @if (dateControl.hasError('mask') && !dateControl.hasError('required')) {
+        <mat-error>Введіть дату правильного формату</mat-error>
+      }
+
+      @if (dateControl.hasError('required')) {
+        <mat-error>Дата <strong>обовʼязкова</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <button type="submit" mat-flat-button>Розрахувати</button>
+  </form>
+</div>
+
+<div class="content">
+  @if (isSubmit()) {
+    <div class="flex wrapper">
+      <img src="assets/svgs/main.svg" alt="">
+
+      @for (item of arkanList; track item.name) {
+        <div class="circle" [ngClass]="[
+          item.dimension,
+          item.position,
+          item.color
+        ]">{{ item.value }}</div>
+      }
+
+      @for (item of lifePeriods; track item.name) {
+        @for (item of item.list; track item.name) {
+          @if (item.position) {
+            <div class="number" [class]="item.position">{{ item.value }}</div>
+          }
+        }
+      }
+    </div>
+  }
+</div>
