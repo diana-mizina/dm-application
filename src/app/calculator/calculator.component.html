@@ -21,24 +21,55 @@
 
 <div class="content">
   @if (isSubmit()) {
-    <div class="flex wrapper">
-      <img src="assets/svgs/main.svg" alt="">
+    <div class="health-card-wrapper">
+      <h5>Карта здоров'я</h5>
 
-      @for (item of arkanList; track item.name) {
-        <div class="circle" [ngClass]="[
-          item.dimension,
-          item.position,
-          item.color
-        ]">{{ item.value }}</div>
+      <div class="table-row">
+        <div class="table-th-cell table-index-cell" [style.background-color]="'#c6c8d4'"></div>
+        <div class="table-th-cell table-display-cell">Назва чакри</div>
+        <div class="table-th-cell table-physics-cell">Фізика</div>
+        <div class="table-th-cell table-energy-cell">Енергія</div>
+        <div class="table-th-cell table-value-cell">Емоції</div>
+      </div>
+
+      @for (item of healthCard; track item.name; let index = $index) {
+        <div class="table-row">
+          <div class="table-cell table-index-cell" [class]="item.bgColor">{{ index + 1 }}</div>
+
+          <div class="table-cell table-display-cell">
+            {{ item.display }}
+            <div class="sub-text">
+              {{ item.description }}
+            </div>
+          </div>
+
+          <div class="table-cell table-physics-cell">{{ item.physics }}</div>
+          <div class="table-cell table-energy-cell">{{ item.energy }}</div>
+          <div class="table-cell table-value-cell">{{ item.value }}</div>
+        </div>
       }
+    </div>
 
-      @for (item of lifePeriods; track item.name) {
-        @for (item of item.list; track item.name) {
-          @if (item.position) {
-            <div class="number" [class]="item.position">{{ item.value }}</div>
+    <div class="flex" style="width: 100%; min-width: 0; justify-content: center; max-width: 872px; margin: auto;">
+      <div class="flex wrapper">
+        <img src="assets/svgs/main.svg" alt="">
+
+        @for (item of arkanList; track item.name) {
+          <div class="circle" [attr.data-name-index]="item.name" [ngClass]="[
+            item.dimension,
+            item.position,
+            item.color
+          ]">{{ item.value }}</div>
+        }
+
+        @for (item of lifePeriods; track item.name) {
+          @for (item of item.list; track item.name) {
+            @if (item.position) {
+              <div class="number" [class]="item.position">{{ item.value }}</div>
+            }
           }
         }
-      }
+      </div>
     </div>
   }
 </div>

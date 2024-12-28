@@ -5,17 +5,82 @@
   // justify-content: center;
 
   box-sizing: border-box;
-  padding: 30px;
+  padding: 15px;
   height: 100%;
   gap: 20px;
 }
 
 .content {
+  justify-content: center;
   overflow: auto;
   min-height: 0;
   height: 100%;
   width: 100%;
   margin: 0;
+  gap: 20px;
+  display: flex;
+}
+
+.health-card-wrapper {
+  max-width: 460px;
+  min-width: 460px;
+  font-size: 14px;
+  width: 100%;
+
+  flex-direction: column;
+  display: flex;
+
+  .sub-text {
+    font-size: 0.9em;
+    font-weight: 100;
+  }
+
+  .table-row {
+    min-height: 72px;
+    display: flex;
+
+    &:nth-child(even) {
+      background-color: #f4f4f6;
+    }
+  }
+
+  .table-th-cell,
+  .table-cell {
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .table-th-cell {
+    font-weight: normal !important;
+  }
+
+  .table-index-cell {
+    font-weight: bold;
+    min-width: 50px;
+    color: #000;
+    width: 50px;
+  }
+
+  .table-display-cell {
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .table-physics-cell,
+  .table-value-cell,
+  .table-index-cell,
+  .table-energy-cell {
+    justify-content: center;
+    max-width: 70px;
+  }
 }
 
 .wrapper {
@@ -24,9 +89,25 @@
   width: 100%;
   margin: 0;
 
+  max-width: 872px;
+  min-width: 0;
+  width: 100%;
+
+  height: max-content;
+
   img {
-    min-width: 100%;
-    min-height: 200%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .content {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+  }
+
+  .health-card-wrapper {
+    max-width: 100%;
   }
 }
 
@@ -48,7 +129,6 @@
     noto color emoji;
   position: relative;
   font-size: 4px;
-  max-width: 872px;
   margin: 0 auto;
 }
 
@@ -289,46 +369,54 @@
   color: #ffffff;
 }
 
-.wrapper .purple {
-  background-color: #8a46a3;
-  border-color: #8a46a3;
-  color: #ffffff;
-}
+.content {
+  .purple {
+    background-color: #8a46a3;
+    border-color: #8a46a3;
+    color: #ffffff;
+  }
 
-.wrapper .red {
-  background-color: #ef4141;
-  border-color: #ef4141;
-  color: #ffffff;
-}
+  .red {
+    background-color: #ef4141;
+    border-color: #ef4141;
+    color: #ffffff;
+  }
 
-.wrapper .yellow {
-  background-color: #ffed47;
-  border-color: #ffed47;
-  color: #222831;
-}
+  .yellow {
+    background-color: #ffed47;
+    border-color: #ffed47;
+    color: #222831;
+  }
 
-.wrapper .white {
-  background-color: #ffffff;
-  border-color: #222831;
-  color: #222831;
-}
+  .white {
+    background-color: #ffffff;
+    border-color: #222831;
+    color: #222831;
+  }
 
-.wrapper .blue {
-  background-color: #526dfa;
-  border-color: #526dfa;
-  color: #ffffff;
-}
+  .blue {
+    background-color: #526dfa;
+    border-color: #526dfa;
+    color: #ffffff;
+  }
 
-.wrapper .orange {
-  background-color: #ffae34;
-  border-color: #ffae34;
-  color: #ffffff;
-}
+  .light-blue {
+    background-color: #45cfe1;
+    border-color: #45cfe1;
+    color: #ffffff;
+  }
 
-.wrapper .green {
-  background-color: #afde61;
-  border-color: #afde61;
-  color: #ffffff;
+  .orange {
+    background-color: #ffae34;
+    border-color: #ffae34;
+    color: #ffffff;
+  }
+
+  .green {
+    background-color: #afde61;
+    border-color: #afde61;
+    color: #ffffff;
+  }
 }
 
 .wrapper .number {

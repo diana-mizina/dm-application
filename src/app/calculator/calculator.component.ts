@@ -33,20 +33,125 @@ import { LIFE_PERIODS_ENUM } from './enums/life-periods.enum';
 })
 export class CalculatorComponent {
 
-  // dateControl = new FormControl('30.07.1998', [Validators.required]);
   dateControl = new FormControl('', [Validators.required]);
 
   lifePeriods: any[] = LIFE_PERIODS_STATE;
   arkanList: any[] = ARKAN_LIST_STATE;
+  healthCard: any[] = [];
   isSubmit = signal(false);
 
   submit(): void {
     this.calculateMatrixOfFate(this.dateControl.value!);
+    this.calculateHealthCard();
 
     this.setLifePeriodsValues();
     this.calculateLifePeriods();
 
     this.isSubmit.set(true);
+  }
+
+  private calculateHealthCard(): void {
+    const YEAR_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.YEAR_ENERGY);
+    const PAST_KARMA_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.PAST_KARMA_ENERGY);
+    const Muladhara = this.reduceToTwentyTwo(YEAR_ENERGY! + PAST_KARMA_ENERGY!);
+    this.healthCard.push({
+      name: 'Muladhara',
+      display: 'Муладхара',
+      physics: YEAR_ENERGY,
+      energy: PAST_KARMA_ENERGY,
+      value: Muladhara,
+      bgColor: 'red',
+      description: 'Тіло, матерія'
+    });
+
+    const FINANCIAL_TAIL = this.getValueByName(MATRIX_OF_FATE_ENUM.FINANCIAL_TAIL);
+    const KARMIC_TAIL = this.getValueByName(MATRIX_OF_FATE_ENUM.KARMIC_TAIL);
+    const Svadhisthana = this.reduceToTwentyTwo(FINANCIAL_TAIL! + KARMIC_TAIL!);
+    this.healthCard.unshift({
+      name: 'Svadhisthana',
+      display: 'Свадхистана',
+      physics: FINANCIAL_TAIL,
+      energy: KARMIC_TAIL,
+      value: Svadhisthana,
+      bgColor: 'orange',
+      description: 'Дитяче кохання та радість'
+    });
+
+    const POWER_POINT_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.POWER_POINT_ENERGY);
+    const Manipur = this.reduceToTwentyTwo(POWER_POINT_ENERGY! + POWER_POINT_ENERGY!);
+    this.healthCard.unshift({
+      name: 'Manipur',
+      display: 'Маніпура',
+      physics: POWER_POINT_ENERGY,
+      energy: POWER_POINT_ENERGY,
+      value: Manipur,
+      bgColor: 'yellow',
+      description: 'Статус, володіння'
+    });
+
+    const PARENT_CHILD_ZONE_2 = this.getValueByName(MATRIX_OF_FATE_ENUM.PARENT_CHILD_ZONE_2);
+    const HEART_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.HEART_ENERGY);
+    const Anahata = this.reduceToTwentyTwo(PARENT_CHILD_ZONE_2! + HEART_ENERGY!);
+    this.healthCard.unshift({
+      name: 'Anahata',
+      display: 'Анахата',
+      physics: PARENT_CHILD_ZONE_2,
+      energy: HEART_ENERGY,
+      value: Anahata,
+      bgColor: 'green',
+      description: 'Відносини, картина світу'
+    });
+
+    const PARENT_CHILD_ZONE = this.getValueByName(MATRIX_OF_FATE_ENUM.PARENT_CHILD_ZONE);
+    const TALENT_FOR_CLAN = this.getValueByName(MATRIX_OF_FATE_ENUM.TALENT_FOR_CLAN);
+    const Vishuddha = this.reduceToTwentyTwo(PARENT_CHILD_ZONE! + TALENT_FOR_CLAN!);
+    this.healthCard.unshift({
+      name: 'Vishuddha',
+      display: 'Вішудха',
+      physics: PARENT_CHILD_ZONE,
+      energy: TALENT_FOR_CLAN,
+      value: Vishuddha,
+      bgColor: 'light-blue',
+      description: 'Доля, егрегори'
+    });
+
+    const PARENT_CHILD_ZONE_1 = this.getValueByName(MATRIX_OF_FATE_ENUM.PARENT_CHILD_ZONE_1);
+    const INTERMEDIATE_TALENT = this.getValueByName(MATRIX_OF_FATE_ENUM.INTERMEDIATE_TALENT);
+    const Ajna = this.reduceToTwentyTwo(PARENT_CHILD_ZONE_1! + INTERMEDIATE_TALENT!);
+    this.healthCard.unshift({
+      name: 'Ajna',
+      display: 'Аджна',
+      physics: PARENT_CHILD_ZONE_1,
+      energy: INTERMEDIATE_TALENT,
+      value: Ajna,
+      bgColor: 'blue',
+      description: 'Доля, егрегори'
+    });
+
+    const DAY_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.DAY_ENERGY);
+    const MONTH_ENERGY = this.getValueByName(MATRIX_OF_FATE_ENUM.MONTH_ENERGY);
+    const Sahasrara = this.reduceToTwentyTwo(DAY_ENERGY! + MONTH_ENERGY!);
+    this.healthCard.unshift({
+      name: 'Sahasrara',
+      display: 'Сахасрара',
+      physics: DAY_ENERGY,
+      energy: MONTH_ENERGY,
+      value: Sahasrara,
+      bgColor: 'purple',
+      description: 'Місія'
+    });
+
+    this.healthCard.push({
+      display: 'Підсумок',
+      physics: this.reduceToTwentyTwo(this.calculateHealthCardTotal('physics')),
+      energy: this.reduceToTwentyTwo(this.calculateHealthCardTotal('energy')),
+      value: this.reduceToTwentyTwo(this.calculateHealthCardTotal('value')),
+      description: 'Загальне енергополе'
+    });
+  }
+
+  private calculateHealthCardTotal(propertyName: string): void {
+    return this.healthCard.reduce((acc: number, item: any) => (acc + item[propertyName]), 0);
   }
 
   private setLifePeriodsValues(): void {
